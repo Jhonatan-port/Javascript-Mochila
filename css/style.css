@@ -15,6 +15,7 @@ html {
     flex-grow: 1;
     flex-basis: auto;
     min-width: 600px;
+    max-width: 600px;
     padding: 4em 2em 2em;
     box-sizing: border-box;
     display: flex;
@@ -48,7 +49,7 @@ html {
     position: absolute;
   }
   
-.mochila:before {
+  .mochila:before {
     height: 75px;
     width: 118px;
     background-image: radial-gradient(circle closest-corner at 13px 29px , #af342c, #af342c 2px, transparent 2px, transparent), radial-gradient(circle closest-corner at 13px 29px , #491033, #491033 4px, transparent 4px, transparent), linear-gradient(to bottom, transparent 10px, transparent 15px, #491033 5px, #491033 18px, transparent 18px, transparent 100px), linear-gradient(to right, #af342c 10px, #af342c 10px, transparent 10px, transparent 16px, #af342c 9px, #af342c 50px), linear-gradient(to bottom, #af342c 8px, #af342c 16px, #491033 8px, #491033 30px, #af342c 20px, #af342c 72px, #af342c 10px, #af342c 57px, #af342c 5%);
@@ -90,16 +91,36 @@ html {
     border: 2px solid #40112D;
 }
 
+.erro{
+    visibility: hidden;
+    padding: 0.7em;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    transition: all 1s;
+    background-color: red;
+}
+
 .adicionar label {
     display: block;
 }
 
 .cadastrar {
-    background-color: #40112D;
+    background-color: #4e1638;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.7s;
+}
+.cadastrar:hover {
+    background-color: #360f26;
     color: #FFFFFF;
     cursor: pointer;
 }
 
+.div-lista::after{
+    width: 80%;
+    opacity: 20%;
+}
 .lista {
     margin: 0;
     padding: 0;
