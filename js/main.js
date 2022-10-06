@@ -1,5 +1,7 @@
+
 const form = document.getElementById("novoItem");
 const lista = document.getElementById("lista"); 
+const itensDelete = document.querySelectorAll(".item")
 const itens = JSON.parse(localStorage.getItem("itens")) || [];
 
 
@@ -20,12 +22,12 @@ form.addEventListener("submit", function(evento){
 
     const existe = itens.find(elemento => elemento.nome === nome.value);
 
-    if(existe){
+    if(existe && validaItem(itemAtual)){
         itemAtual.id = existe.id;
         atualizaElemento(itemAtual);
 
         itens[existe.id] = itemAtual;
-    }else{
+    }else if(!existe && validaItem(itemAtual)){
 
         itemAtual.id = itens.length;
  
@@ -39,6 +41,11 @@ form.addEventListener("submit", function(evento){
     nome.value = "";
     quantidade.value = "";
     
+})
+
+lista.addEventListener("dblclick", function(evento){
+    console.log(itens.findo)
+    evento.target.remove();
 })
 
 /*Funções*/
@@ -61,3 +68,15 @@ function criaElemento(item){
 function atualizaElemento(item){
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade;
 }
+
+function validaItem(item){
+    const erro = document.querySelector(".erro");
+    if(item.nome.length === 0 || item.quantidade.length === 0){
+        erro.style.visibility = 'visible';
+        return false;
+    }else{
+        erro.style.visibility = 'hidden';
+        return true;
+    }
+}
+
