@@ -26,10 +26,10 @@ form.addEventListener("submit", function(evento){
         itemAtual.id = existe.id;
         atualizaElemento(itemAtual);
 
-        itens[existe.id] = itemAtual;
+        itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual;
     }else if(!existe && validaItem(itemAtual)){
 
-        itemAtual.id = itens.length;
+        itemAtual.id = itens[itens.length - 1] ? (itens[itens.length - 1]).id + 1 : 0;
  
         criaElemento(itemAtual);
 
@@ -43,10 +43,10 @@ form.addEventListener("submit", function(evento){
     
 })
 
-lista.addEventListener("dblclick", function(evento){
-    console.log(itens.findo)
-    evento.target.remove();
-})
+// lista.addEventListener("dblclick", function(evento){
+//     console.log(itens.findo)
+//     evento.target.remove();
+// })
 
 /*Funções*/
 function criaElemento(item){
@@ -60,9 +60,16 @@ function criaElemento(item){
     novoItem.appendChild(numeroItem);
 
     novoItem.innerHTML += item.nome;
-
+    novoItem.appendChild(botaoDeleta(item.id));
     lista.appendChild(novoItem);
 
+}
+
+function deletaElemento(tag, id){
+    tag.remove();
+
+    itens.splice(itens.findIndex(elemento => elemento.id === id), 1);
+    localStorage.setItem("itens", JSON.stringify(itens));
 }
 
 function atualizaElemento(item){
@@ -72,11 +79,22 @@ function atualizaElemento(item){
 function validaItem(item){
     const erro = document.querySelector(".erro");
     if(item.nome.length === 0 || item.quantidade.length === 0){
-        erro.style.visibility = 'visible';
+        erro.style.visibility = 'visible';/* adicionar contador de 5s*/
         return false;
     }else{
         erro.style.visibility = 'hidden';
         return true;
     }
+}
+
+function  botaoDeleta(id){
+    const elementoBotao = document.createElement("button");
+    elementoBotao.innerText = "x";
+
+    elementoBotao.addEventListener("click", function(){
+        deletaElemento(this.parentElement,id)
+    })
+
+    return elementoBotao;
 }
 
